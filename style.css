@@ -1,0 +1,157 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: linear-gradient(to right, #ffefba, #ffffff);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 100%;
+    min-height: 100vh;
+}
+
+.valid {
+    border: solid 2px greenyellow;
+}
+
+.invalid {
+    border: orange solid 2px;
+}
+
+#player-name{
+    font-family: 'Pangolin';
+    font-size: 1.5rem;
+    font-weight: bolder;
+    margin: 25px 0;
+}
+
+#input-info {
+    font-size: 1rem;
+    visibility: hidden;
+    height: 0;
+    color: orange;
+    margin: 5px 0;
+}
+
+input[name=username] {
+    background-color: white;
+    color: black;
+    outline: none;
+    font-size: 0.9rem;
+    padding: 10px 25px;
+    border-radius: 10px;
+    margin-top: 20px;
+}
+
+.welcome {
+    background-color: white;
+    width: 100%;
+    height: 100vh;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 999;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Pangolin';
+    font-size: 1.5rem;
+}
+
+.start-game {
+    background-color: orange;
+    outline: none;
+    padding: 10px;
+    width: 25%;
+    border-radius: 10px;
+}
+
+.game-options {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 50%;
+}
+
+.option-animation {
+    animation: showUp 1s ease forwards;
+}
+
+.main-container-animation {
+    animation: showUp 1s ease forwards;
+}
+
+
+.main-container {
+    width: 50%;
+}
+
+.restart-button {
+    font-family: "Pangolin",cursive;
+    font-weight: bolder;
+    font-size: 1.2rem;
+    border-radius: 10px;
+    padding: 25px;
+    color: white;
+    background-color: black;
+    outline: none;
+}
+
+h1 {
+    font-family: "Pangolin", cursive;
+}
+
+.grid-container {
+    width: 500px;
+    display: flex;
+    background-color: white;
+    flex-wrap: wrap;
+    background: linear-gradient(to right, #ffefba, #ffffff);
+    box-shadow: 10px 10px 17px rgba(0,0,0,0.6);
+    /*box-shadow: 0px 17px 10px -10px rgba(0,0,0,0.4);*/
+}
+
+.grid-element {
+    background-color: white;
+    /*width: 20px;
+    height: 20px;*/
+    border: solid black 1px;
+    border-collapse: collapse;
+    margin: 0;
+    background-color: transparent;
+    animation: showUp 2s ease forwards;
+}
+
+@keyframes showUp {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@media screen and (max-width: 1021px) {
+    body {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .game-options {
+        margin: 50px auto;
+    }
+
+    .main-container {
+        width: 100%;
+    }
+
+    .grid-container {
+        margin: 0 auto;
+    }
+}

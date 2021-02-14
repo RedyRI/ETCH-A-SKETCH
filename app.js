@@ -1,93 +1,115 @@
-let nameRegExp = /^[a-z]{4,8}$/i;
-let userName = document.querySelector('input[name=username]');
-userName.addEventListener('keyup',(e) => {
-    validate(e.target, nameRegExp);
-    console.log(e.target.value);
-})
-
-
-
-let gameOptions = document.querySelector('.game-options');
 let mainContainer = document.querySelector('.main-container');
 
-let startGame = document.querySelector('.start-game');
-startGame.addEventListener('click', (e) => {
+let restarButton = document.querySelector('.restart-button');
+// create table
 
-    if(userName.classList.contains('valid')) {
-        e.target.parentNode.style.display = "none";
-        gameOptions.classList.add('option-animation');   
-        mainContainer.classList.add('main-container-animation');
-        document.getElementById('player-name').textContent = `PLAYER: ${userName.value.toUpperCase()}`
+
+function hoverEvent(paintmode) {
+    let gridELements = document.querySelectorAll('.grid-element');
+    gridELements.forEach((element) => {
+        paintmode(element);
+    })
+}
+
+function createTable(number, paintmode) {
+    
+    let containerWidth = window.innerWidth;
+    if(containerWidth < 480) {
+        containerWidth *= 0.8;
+    } else if(containerWidth < 768) {
+        containerWidth *= 0.6;
     } else {
-        alert("enter a valid username")
+        containerWidth *= 0.35;
     }
-})
-
-let restartButton = document.createElement('button');
-restartButton.classList.add('restart-button');
-restartButton.textContent = "RESTART GAME";
-console.log(mainContainer.previousElementSibling);
-mainContainer.previousElementSibling.appendChild(restartButton);
-let numberRowAndColumns = 16;  // initial rows and columns 
-
-// function to create the table
-function createTable(numberRowAndColumns) {
     let gridContainer = document.createElement('div');
     gridContainer.classList.add('grid-container');
+    gridContainer.style.width = `${containerWidth}px`;
+    
+    for (let i = 0; i < number ** 2; i++) {
+        let gridELement = document.createElement('div');
+        gridELement.classList.add('grid-element');
+        gridELement.style.width = `${containerWidth/number}px`;
+        gridELement.style.height = `${containerWidth/number}px`;
+        gridContainer.appendChild(gridELement);
+    }
+    
     mainContainer.appendChild(gridContainer);
-    width = gridContainer.offsetWidth;
-    console.log(typeof(width));
-    for (let i=0; i < (numberRowAndColumns ** 2); i++) {
-        // create a div element append it to the grid container
-        let div = document.createElement('div');
-        div.classList.add('grid-element');
-        div.style.width = `${(width / numberRowAndColumns)}px`
-        div.style.height = `${(width / numberRowAndColumns)}px`
-        gridContainer.appendChild(div);
-        div.addEventListener('mouseover', (e) => {
-            e.target.style.backgroundColor = paintRandom();
-        }, {
-            once: true
-        })
-    }
+    hoverEvent(paintmode);
+    
 }
 
-// restart game
-restartButton.addEventListener('click', (e) => {
-    let gridContainer = document.querySelector('.grid-container');
-    mainContainer.removeChild(gridContainer);
-    numberRowAndColumns = prompt('How many rows and cols? ');
-    createTable(numberRowAndColumns);
-});
-
-createTable(numberRowAndColumns);
-
-// random color
-
-function paintRandom() {
-    return `rgb(${Math.floor(Math.random()*201)},${Math.floor(Math.random()*201)},${Math.floor(Math.random()*201)})`
-}
-
-
-// reg exp validation
-
-
-function validate(node, nameRegExp) {
-    if(nameRegExp.test(node.value)) {
-        node.classList.add('valid');
-        if(node.classList.contains('invalid')) {
-            node.classList.remove('invalid');
-        }
-        node.nextElementSibling.style.height = "0";
-        node.nextElementSibling.style.visibility = "hidden";
-
+function validateNumber() {
+    let wrongNumber = true;
+    let numberRowAndCols = document.querySelector('input[name=rows-and-col-number]').value;
+    
+    if (numberRowAndCols < 1 || numberRowAndCols > 100) {
+        document.querySelector('.restart-section > p').style.display = "block";
+        return 0;
     } else {
-        if(node.classList.contains('valid')) {
-            node.classList.remove('valid');
-        }
-        node.classList.add('invalid');
-        node.nextElementSibling.style.height = "auto";
-        node.nextElementSibling.style.visibility = "visible";
-        
+        document.querySelector('.restart-section > p').style.display = "none";
+         return numberRowAndCols;
     }
+
+}   
+
+restarButton.addEventListener('click', (e) => {
+    let gridContainer = document.querySelector('.grid-container');
+    gridContainer.parentNode.removeChild(gridContainer);
+    let number = validateNumber();
+    createTable(number,hslPaint);
+})
+
+let paintBW = document.querySelector('.paint-bw');
+let paintHSL = document.querySelector('.paint-hsl');
+let eraser = document.querySelector('.eraser');
+var colorPicker = document.querySelector('input[type=color]');
+
+colorPicker.addEventListener('change', (e) => {
+    hoverEvent(pickFunc)
+})
+
+paintBW.addEventListener('click', (e) => {
+    hoverEvent(blackPaint)
+})
+
+paintHSL.addEventListener('click', (e) => {
+    hoverEvent(hslPaint)
+})
+
+eraser.addEventListener('click', (e) => {
+    hoverEvent(eraserFunc)
+})
+
+var hslPaint = function (element) {
+    document.querySelector('.button-container > p').style.display = 'block';
+    let light = 50;
+        let hue = Math.floor(Math.random() * 361);
+        element.addEventListener('mouseover', (e) => {
+            e.target.style.backgroundColor =`hsl(${hue},100%,${light}%)`;
+            light -= 5;
+
+        })
 }
+
+var blackPaint = function(element) {
+    document.querySelector('.button-container > p').style.display = 'none';
+
+    element.addEventListener('mouseover', (e) => {
+        e.target.style.backgroundColor = 'black';
+    })
+}
+
+var pickFunc = function (element) {
+    document.querySelector('.button-container > p').style.display = 'none';
+    element.addEventListener('mouseover', (e) => {
+        e.target.style.backgroundColor = colorPicker.value;
+    })
+}
+
+var eraserFunc = function (element) {
+    document.querySelector('.button-container > p').style.display = 'none';
+    element.addEventListener('mouseover', (e) => {
+        e.target.style.backgroundColor = 'white';
+    })
+}
+createTable(16,hslPaint);

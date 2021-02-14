@@ -1,157 +1,164 @@
 * {
-    box-sizing: border-box;
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
 body {
-    background: linear-gradient(to right, #ffefba, #ffffff);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 100%;
-    min-height: 100vh;
-}
-
-.valid {
-    border: solid 2px greenyellow;
-}
-
-.invalid {
-    border: orange solid 2px;
-}
-
-#player-name{
-    font-family: 'Pangolin';
-    font-size: 1.5rem;
-    font-weight: bolder;
-    margin: 25px 0;
-}
-
-#input-info {
-    font-size: 1rem;
-    visibility: hidden;
-    height: 0;
-    color: orange;
-    margin: 5px 0;
-}
-
-input[name=username] {
-    background-color: white;
-    color: black;
-    outline: none;
-    font-size: 0.9rem;
-    padding: 10px 25px;
-    border-radius: 10px;
-    margin-top: 20px;
-}
-
-.welcome {
-    background-color: white;
-    width: 100%;
-    height: 100vh;
-    position: absolute;
-    left: 0;
-    top: 0;
-    z-index: 999;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-family: 'Pangolin';
-    font-size: 1.5rem;
-}
-
-.start-game {
-    background-color: orange;
-    outline: none;
-    padding: 10px;
-    width: 25%;
-    border-radius: 10px;
-}
-
-.game-options {
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 50%;
-}
-
-.option-animation {
-    animation: showUp 1s ease forwards;
-}
-
-.main-container-animation {
-    animation: showUp 1s ease forwards;
-}
-
-
-.main-container {
-    width: 50%;
-}
-
-.restart-button {
-    font-family: "Pangolin",cursive;
-    font-weight: bolder;
-    font-size: 1.2rem;
-    border-radius: 10px;
-    padding: 25px;
-    color: white;
-    background-color: black;
-    outline: none;
+    background-image: linear-gradient( 90.5deg,  rgba(255,207,139,0.50) 1.1%, rgba(255,207,139,1) 81.3% );
 }
 
 h1 {
-    font-family: "Pangolin", cursive;
+    font-family: 'Reggae One', cursive;
+    text-align: center;
+    margin: 10px 0;
 }
 
 .grid-container {
-    width: 500px;
     display: flex;
-    background-color: white;
     flex-wrap: wrap;
-    background: linear-gradient(to right, #ffefba, #ffffff);
-    box-shadow: 10px 10px 17px rgba(0,0,0,0.6);
-    /*box-shadow: 0px 17px 10px -10px rgba(0,0,0,0.4);*/
 }
 
 .grid-element {
+    border: 1px solid black;
     background-color: white;
-    /*width: 20px;
-    height: 20px;*/
-    border: solid black 1px;
-    border-collapse: collapse;
-    margin: 0;
-    background-color: transparent;
-    animation: showUp 2s ease forwards;
 }
 
-@keyframes showUp {
-    0% {
-        opacity: 0;
-    }
-    100% {
-        opacity: 1;
-    }
+.main {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 5px;
 }
 
-@media screen and (max-width: 1021px) {
-    body {
+.main-container {
+    box-shadow: 10px 10px 17px -7px black;
+
+}
+
+.button-container {
+    text-align: center;
+    display: flex;
+    background-color: white;
+    box-shadow: 10px 10px 17px -7px black;
+    }
+
+.button-container > button {
+    margin: 5px auto;
+    width: 80%;
+    color: white;
+    background-color: black;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.restart-button {
+    background-color: black;
+    color: white;
+    outline: none;
+    padding: 8px;
+    border-radius: 10px;
+
+}
+
+.restart-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border-bottom: double 3px black;
+}
+
+.restart-section  > p {
+    color: red;
+    font-weight: bold;
+    font-size: .9rem;
+    display: none;
+}
+
+input[type=number] {
+    margin: 0 10px;
+    text-align: center;
+    padding: 8px;
+    border-radius: 10px;
+}
+
+.button-container > p {
+    display: none;
+    color: green;
+}
+
+@media screen and (max-width: 479px) {
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    .button-container {
+        display: block;
+        width: 100%;
+        padding: 5px 0;
+        margin: 10px 20px;
+
+    }
+
+    .button-container >.eraser {
+        width: 30%;
+        margin: 5px 0;
+    }
+
+    .button-container > button {
+        margin: 0;
+        width: 40%;
+    }
+
+    .button-container > .color-picker-container {
+        padding: 5px;
+    }
+
+    .main {
         display: flex;
-        flex-direction: column;
+        flex-direction: column-reverse;
     }
 
-    .game-options {
-        margin: 50px auto;
+    .restart-section {
+        text-align: center;
+        padding-bottom: 3px;
+    }
+}
+
+@media screen and (min-width: 480px) {
+    .button-container {
+        width: 35%;
+        flex-direction: column;
+        margin: 0 auto;
+        height: 300px;
+        justify-content: center;
+    }
+
+    .main-container{
+        margin: 0 auto;
+    } 
+    .restart-section {
+        padding: 10px 0;
+    }
+
+}
+
+@media screen and (min-width: 768px) {
+    .button-container {
+        width: 20%;
+        height: 300px;
+        flex-direction: column;
+        justify-content: center;
+        margin: 0 2% 0 auto;
+    }
+
+    .main {
+        align-items: center;
+        justify-content: center ;
     }
 
     .main-container {
-        width: 100%;
-    }
-
-    .grid-container {
-        margin: 0 auto;
+        margin: 0 auto 0 2%;
     }
 }
